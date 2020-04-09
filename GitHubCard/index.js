@@ -70,11 +70,21 @@ infoDiv.appendChild(profile)
 infoDiv.appendChild(followers)
 infoDiv.appendChild(following)
 infoDiv.appendChild(bio)
+profile.appendChild(address)
 
 card.classList.add('card')
 infoDiv.classList.add('card-info')
 name.classList.add('name')
 userName.classList.add('username')
+
+image.src = gitHubInfo.avatar_url
+name.textContent = gitHubInfo.name
+userName.textContent = gitHubInfo.login
+location.textContent = gitHubInfo.location
+address.textContent = gitHubInfo.html_url
+followers.textContent = gitHubInfo.followers
+following.textContent = gitHubInfo.following
+bio.textContent = gitHubInfo.bio
 
 
 
