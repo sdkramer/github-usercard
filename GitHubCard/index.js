@@ -46,7 +46,6 @@ const followersArray = [];
 
 */
 function userCardMaker(gitHubInfo) {
- 
   const card = document.createElement("div");
   const image = document.createElement("img");
   const infoDiv = document.createElement("div");
@@ -65,10 +64,11 @@ function userCardMaker(gitHubInfo) {
   infoDiv.appendChild(userName);
   infoDiv.appendChild(location);
   infoDiv.appendChild(profile);
+  profile.appendChild(address);
   infoDiv.appendChild(followers);
   infoDiv.appendChild(following);
   infoDiv.appendChild(bio);
-  profile.appendChild(address);
+  
 
   card.classList.add("card");
   infoDiv.classList.add("card-info");
@@ -79,29 +79,26 @@ function userCardMaker(gitHubInfo) {
   name.textContent = gitHubInfo.name;
   userName.textContent = gitHubInfo.login;
   location.textContent = `Location: ${gitHubInfo.location}`;
-  // profile.textContent =
-  address.href = gitHubInfo.html_url;
-  address.textContent = gitHubInfo.html_url;
+  // profile.textContent = `Profile: ${gitHubInfo.html_url}`
+  address.setAttribute('href',gitHubInfo.html_url)
+  address.textContent = `Profile: ${gitHubInfo.html_url}`
   followers.textContent = `Followers: ${gitHubInfo.followers}`;
   following.textContent = `Following: ${gitHubInfo.following}`;
   bio.textContent = `Bio: ${gitHubInfo.bio}`;
 
-  const cards = document.querySelector('.cards')
-  cards.appendChild(card)
+  const cards = document.querySelector(".cards");
+  cards.appendChild(card);
 
   return card;
 }
 
-
 axios
   .get("https://api.github.com/users/sdkramer")
   .then((response) => {
-    // console.log(userCardMaker("Here", response.data, "I am here"));
-    // console.log(response.data.bio)
     let gitHubInfo = response.data;
-    console.log(gitHubInfo)
-    // cards.appendChild(userCardMaker(gitHubInfo))
-  userCardMaker(gitHubInfo)
+    console.log(gitHubInfo);
+
+    userCardMaker(gitHubInfo);
   })
   .catch((err) => {
     console.log(err);
