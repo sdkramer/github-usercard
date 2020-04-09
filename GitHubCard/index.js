@@ -2,15 +2,7 @@
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
 */
-let gitHubInfo ={}
-axios.get('https://api.github.com/users/sdkramer')
-.then(response => {
-let gitHubInfo = response.data
-  console.log(gitHubInfo)
-})
-.catch(err => {
-  console.log(err)
-})
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -54,50 +46,66 @@ const followersArray = [];
 
 */
 function userCardMaker(gitHubInfo) {
-const card = document.createElement('div')
-const image = document.createElement('img')
-const infoDiv = document.createElement('div')
-const name = document.createElement('h3')
-const userName = document.createElement('p')
-const location = document.createElement('p')
-const profile = document.createElement('p')
-const address = document.createElement('a')
-const followers = document.createElement('p')
-const following = document.createElement('p')
-const bio = document.createElement('p')
+ 
+  const card = document.createElement("div");
+  const image = document.createElement("img");
+  const infoDiv = document.createElement("div");
+  const name = document.createElement("h3");
+  const userName = document.createElement("p");
+  const location = document.createElement("p");
+  const profile = document.createElement("p");
+  const address = document.createElement("a");
+  const followers = document.createElement("p");
+  const following = document.createElement("p");
+  const bio = document.createElement("p");
 
-card.appendChild(image)
-card.appendChild(infoDiv)
-infoDiv.appendChild(name)
-infoDiv.appendChild(name)
-infoDiv.appendChild(userName)
-infoDiv.appendChild(location)
-infoDiv.appendChild(profile)
-infoDiv.appendChild(followers)
-infoDiv.appendChild(following)
-infoDiv.appendChild(bio)
-profile.appendChild(address)
+  card.appendChild(image);
+  card.appendChild(infoDiv);
+  infoDiv.appendChild(name);
+  infoDiv.appendChild(userName);
+  infoDiv.appendChild(location);
+  infoDiv.appendChild(profile);
+  infoDiv.appendChild(followers);
+  infoDiv.appendChild(following);
+  infoDiv.appendChild(bio);
+  profile.appendChild(address);
 
-card.classList.add('card')
-infoDiv.classList.add('card-info')
-name.classList.add('name')
-userName.classList.add('username')
+  card.classList.add("card");
+  infoDiv.classList.add("card-info");
+  name.classList.add("name");
+  userName.classList.add("username");
 
-image.src = gitHubInfo.avatar_url
-name.textContent = gitHubInfo.name
-userName.textContent = gitHubInfo.login
-location.textContent = gitHubInfo.location
-address.textContent = gitHubInfo.html_url
-followers.textContent = gitHubInfo.followers
-following.textContent = gitHubInfo.following
-bio.textContent = gitHubInfo.bio
+  image.src = gitHubInfo.avatar_url;
+  name.textContent = gitHubInfo.name;
+  userName.textContent = gitHubInfo.login;
+  location.textContent = `Location: ${gitHubInfo.location}`;
+  // profile.textContent =
+  address.href = gitHubInfo.html_url;
+  address.textContent = gitHubInfo.html_url;
+  followers.textContent = `Followers: ${gitHubInfo.followers}`;
+  following.textContent = `Following: ${gitHubInfo.following}`;
+  bio.textContent = `Bio: ${gitHubInfo.bio}`;
 
+  const cards = document.querySelector('.cards')
+  cards.appendChild(card)
 
-
-
+  return card;
 }
 
 
+axios
+  .get("https://api.github.com/users/sdkramer")
+  .then((response) => {
+    // console.log(userCardMaker("Here", response.data, "I am here"));
+    // console.log(response.data.bio)
+    let gitHubInfo = response.data;
+    console.log(gitHubInfo)
+    // cards.appendChild(userCardMaker(gitHubInfo))
+  userCardMaker(gitHubInfo)
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
